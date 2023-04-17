@@ -6,7 +6,7 @@ from blog.models import Catalog, Tag, Article, Like, Message, Comment
 class CatalogSerializer(serializers.ModelSerializer):
     class Meta:
         model = Catalog
-        fields = ['id', 'name', 'parent']
+        fields = ['id', 'name', 'parent','modified_at']
 
 
 class TagSerializer(serializers.ModelSerializer):
