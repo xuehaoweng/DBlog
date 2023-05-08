@@ -91,7 +91,6 @@ RUN set -ex \
     && rm -rf /var/cache/yum/*
 
 RUN set -ex \
- && more settings.py \
  && echo -e "yes" | python3 manage.py collectstatic \
  && echo -e python3 manage.py makemigrations \
  && python3 manage.py migrate  --fake
