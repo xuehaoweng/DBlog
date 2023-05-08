@@ -1,0 +1,68 @@
+version: "3.2"
+networks:
+  netops-ipam-network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 192.168.225.0/24
+
+services:
+  netipam_web:
+    image: artifacts.iflytek.com/docker-private/netops/cmdb-ipam-web:001
+    container_name: netipam_web
+    ports:
+      - "18002:80"
+#    command: sh start.sh web
+    volumes:
+      - ./default.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - netipam_backend
+    networks:
+      - netops-ipam-network
+  netipam_backend:
+    image: artifacts.iflytek.com/docker-private/netops/cmdb-ipam-backend:002
+    container_name: netipam_backend
+    ports:
+      - "18005:18001"
+      - "35055:35055"
+    command: sh start.sh web
+    volumes:
+      - ./:/home/netopsipam/
+      - ./logs:/home/netopsipam/logs
+    networks:
+      - netops-ipam-network
+
+#  netipam_nginx:
+#    image: registry.cn-hangzhou.aliyuncs.com/netaxe/nginx:1.7.9
+#    container_name: netipam_nginx
+#    volumes:
+#      - ./nginx.conf:/etc/nginx/conf.d/nginx.conf
+#      - ./:/home/netopsipam/
+#    ports:
+#      - "19999:19999"
+#    depends_on:
+#      - netipam_server
+#    networks:
+#      - netops-ipam-network
+  celery_ipam:
+    image: artifacts.iflytek.com/docker-private/netops/cmdb-ipam-backend:002
+    container_name: celery_ipam
+    command: sh start.sh netops_ipam
+    depends_on:
+      - netipam_backend
+    volumes:
+      - ./:/home/netopsipam
+    networks:
+      - netops-ipam-network
+  celery_default:
+    image: artifacts.iflytek.com/docker-private/netops/cmdb-ipam-backend:002
+    container_name: celery_default
+    command: sh start.sh default
+    depends_on:
+      - netipam_backend
+    volumes:
+      - ./:/home/netopsipam
+    networks:
+      - netops-ipam-network
+
+

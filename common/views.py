@@ -120,7 +120,9 @@ class BaseModelViewSet(BaseViewSetMixin, viewsets.ModelViewSet):
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all().order_by('username')
     serializer_class = UserSerializer
-    permission_classes = [permissions.AllowAny]
+    # permission_classes = [permissions.AllowAny]
+    permission_classes = [permissions.IsAuthenticated]
+
 
 
 class UserLoginViewSet(GenericAPIView):
