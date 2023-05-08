@@ -91,7 +91,6 @@ RUN set -ex \
     && rm -rf /var/cache/yum/*
 
 RUN set -ex \
- && echo -e 'STATIC_ROOT = os.path.join(BASE_DIR, "static/")' >> settings.py \
  && more settings.py \
  && echo -e "yes" | python3 manage.py collectstatic \
  && echo -e python3 manage.py makemigrations \
