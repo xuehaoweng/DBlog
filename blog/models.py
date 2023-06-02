@@ -33,9 +33,9 @@ class Catalog(mptt.models.MPTTModel, AbstractBaseModel):
 class Article(AbstractBaseModel):
     title = models.CharField('文章标题', max_length=100, unique=True, null=False, blank=False)
     cover = models.TextField('封面', max_length=1000, null=False, blank=False)
-    excerpt = models.CharField('摘要', max_length=10000, blank=True)
-    keyword = models.CharField('关键词', max_length=10000, blank=True)
-    markdown = models.TextField('正文', max_length=100000, null=False, blank=False)
+    excerpt = models.TextField('摘要', max_length=65535, blank=True)
+    keyword = models.TextField('关键词', max_length=65535, blank=True)
+    markdown = models.TextField('正文', max_length=65535, null=False, blank=False)
     status = models.CharField('文章状态', max_length=30, choices=Constant.ARTICLE_STATUS,
                               default=Constant.ARTICLE_STATUS_DRAFT)
 
@@ -71,7 +71,7 @@ class Comment(AbstractBaseModel):
     user = models.ForeignKey(User, verbose_name='评论者', on_delete=models.DO_NOTHING, related_name='comment_users')
     reply = models.ForeignKey('self', verbose_name='评论回复', on_delete=models.CASCADE, related_name='comment_reply',
                               null=True, blank=True)
-    content = models.TextField('评论', max_length=10000, null=False, blank=False)
+    content = models.TextField('评论', max_length=2000, null=False, blank=False)
 
     class Meta:
         db_table = 'blog_comment'
@@ -79,7 +79,7 @@ class Comment(AbstractBaseModel):
 
 class Message(AbstractBaseModel):
     email = models.EmailField('邮箱', max_length=100, null=False, blank=False)
-    content = models.TextField('内容', max_length=10000, null=False, blank=False)
+    content = models.TextField('内容', max_length=2000, null=False, blank=False)
     phone = models.CharField('手机', max_length=20, null=True, blank=True)
     name = models.CharField('姓名', max_length=30, null=True, blank=True)
 

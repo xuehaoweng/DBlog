@@ -38,7 +38,7 @@ class OpLogs(models.Model):
     access_time = models.IntegerField(verbose_name='响应耗时/ms')
 
     class Meta:
-        db_table = 'ipam_op_logs'
+        db_table = 'op_logs'
         verbose_name = '平台操作日志表'
         verbose_name_plural = '平台操作日志表'
 
@@ -58,6 +58,6 @@ class AccessTimeOutLogs(models.Model):
     access_time = models.IntegerField(verbose_name='响应耗时/ms')
 
     class Meta:
-        db_table = 'ipam_access_timeout_logs'
+        db_table = 'access_timeout_logs'
         verbose_name = '平台超时操作日志表'
         verbose_name_plural = '平台超时操作日志表'
