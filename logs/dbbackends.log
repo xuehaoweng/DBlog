@@ -282,3 +282,13 @@ DEBUG 2023-06-02 09:10:41,575 (0.000)
 DEBUG 2023-06-02 09:10:41,577 (0.000) SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED; args=None; alias=default
 DEBUG 2023-06-02 09:10:41,611 (0.047) SHOW FULL TABLES; args=None; alias=default
 DEBUG 2023-06-02 09:10:41,630 (0.016) SELECT `django_migrations`.`id`, `django_migrations`.`app`, `django_migrations`.`name`, `django_migrations`.`applied` FROM `django_migrations`; args=(); alias=default
+DEBUG 2023-06-02 09:57:38,854 (0.031) 
+                SELECT VERSION(),
+                       @@sql_mode,
+                       @@default_storage_engine,
+                       @@sql_auto_is_null,
+                       @@lower_case_table_names,
+                       CONVERT_TZ('2001-01-01 01:00:00', 'UTC', 'UTC') IS NOT NULL
+            ; args=None; alias=default
+DEBUG 2023-06-02 09:57:38,870 (0.000) SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED; args=None; alias=default
+DEBUG 2023-06-02 09:57:38,886 (0.016) SHOW FULL TABLES; args=None; alias=default

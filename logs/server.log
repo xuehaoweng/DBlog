@@ -34,3 +34,4 @@
 [2023-06-02 09:50:02,084][MainThread:20700][task_id:django.utils.autoreload][autoreload.py:266][INFO][E:\BlogTemp\DjangoBlogBackend\project\settings.py changed, reloading.]
 [2023-06-02 09:50:02,915][MainThread:7444][task_id:django.utils.autoreload][autoreload.py:677][INFO][Watching for file changes with StatReloader]
 [2023-06-02 09:57:36,775][MainThread:7444][task_id:django.utils.autoreload][autoreload.py:266][INFO][E:\BlogTemp\DjangoBlogBackend\project\settings.py changed, reloading.]
+[2023-06-02 09:57:38,110][MainThread:8988][task_id:django.utils.autoreload][autoreload.py:677][INFO][Watching for file changes with StatReloader]
