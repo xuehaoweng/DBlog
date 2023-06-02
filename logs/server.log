@@ -31,3 +31,4 @@
 [2023-05-12 09:43:06,030][Thread-2:21752][task_id:django.server][basehttp.py:187][INFO]["GET /admin/blog/article/ HTTP/1.1" 200 7102]
 [2023-05-12 09:43:06,052][Thread-2:21752][task_id:django.server][basehttp.py:187][INFO]["GET /admin/jsi18n/ HTTP/1.1" 200 8603]
 [2023-06-02 09:10:40,838][MainThread:20700][task_id:django.utils.autoreload][autoreload.py:677][INFO][Watching for file changes with StatReloader]
+[2023-06-02 09:50:02,084][MainThread:20700][task_id:django.utils.autoreload][autoreload.py:266][INFO][E:\BlogTemp\DjangoBlogBackend\project\settings.py changed, reloading.]
