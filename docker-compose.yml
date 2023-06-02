@@ -9,14 +9,14 @@ networks:
 services:
   blog_backend:
     image: blog_backend:001
-    container_name: blog_backend
-    ports:
-      - "8001:8001"
-    command: sh start.sh web
+
+
     build:
       context: .
       dockerfile: ./Dockerfile
-      command: sh start.sh web
+    command: sh start.sh web
+    ports:
+      - "8001:8001"
     networks:
       - blog-network
     restart: always
