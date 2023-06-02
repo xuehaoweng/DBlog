@@ -2,3 +2,4 @@
 project/__pycache__/*
 common/migrations/__pycache__/*
 blog/migrations/__pycache__/*
+logs/*
