@@ -1,9 +1,11 @@
 FROM python:3.9.16-slim
 RUN sed -i s@/deb.debian.org/@/mirrors.aliyun.com/@g /etc/apt/sources.list
 RUN set -ex \
-  &&apt-get update\
-  &&apt-get install gcc -y\
-  &&apt-get install git -y
+  && apt-get update\
+  && apt-get install gcc -y\
+  && apt-get install git -y \
+  && apt-get install mysql-devel gcc gcc-devel python-devel
+
 COPY . /app
 
 # 再次切换工作目录为Django主目录
