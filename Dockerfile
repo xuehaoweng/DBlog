@@ -4,7 +4,7 @@ RUN set -ex \
   && apt-get update\
   && apt-get install gcc -y\
   && apt-get install git -y \
-  && apt-get install mysql-devel gcc gcc-devel python-devel
+  && apt-get install libmysqlclient-dev
 
 COPY . /app
 
