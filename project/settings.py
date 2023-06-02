@@ -83,7 +83,7 @@ DATABASES = {
         'NAME': 'blog',
         'ENGINE': 'django.db.backends.mysql',
         'HOST': '124.221.181.241',
-        'USER': 'jpress',
+        'USER': 'root',
         'PASSWORD': 'jpress',
         'PORT': '3306',
         'TEST_CHARSET': 'utf8',
