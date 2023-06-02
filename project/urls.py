@@ -5,8 +5,8 @@ from django.views.static import serve
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('common.urls', namespace='common')),
-    path('', include('blog.urls', namespace='blog')),
+    path('common/', include('common.urls', namespace='common')),
+    path('blog/', include('blog.urls', namespace='blog')),
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     re_path(r'upload/(?P<path>.*)', serve, {'document_root': settings.MEDIA_ROOT}),
     re_path(r'^media/(?P<path>.*)', serve, {"document_root": settings.MEDIA_ROOT}),

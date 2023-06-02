@@ -4,19 +4,19 @@ from rest_framework import routers
 from blog import views
 
 router = routers.DefaultRouter()
-router.register('article', views.ArticleViewSet)
-router.register('list', views.ArticleListViewSet)
-router.register('publish', views.ArticlePublishViewSet)
-router.register('offline', views.ArticleOfflineViewSet)
-router.register('archive', views.ArticleArchiveListViewSet)
-router.register('tag', views.TagViewSet)
-router.register('category', views.CatalogViewSet)
-router.register('catalog', views.CatalogViewSet)
-router.register('comment', views.CommentViewSet)
-router.register('like', views.LikeViewSet)
-router.register('message', views.MessageViewSet)
-router.register('number', views.NumberViewSet)
-router.register('top', views.TopArticleViewSet)
+router.register(r'article', views.ArticleViewSet)
+router.register(r'list', views.ArticleListViewSet)
+router.register(r'publish', views.ArticlePublishViewSet)
+router.register(r'offline', views.ArticleOfflineViewSet)
+router.register(r'archive', views.ArticleArchiveListViewSet)
+router.register(r'tag', views.TagViewSet)
+router.register(r'category', views.CatalogViewSet)
+router.register(r'catalog', views.CatalogViewSet)
+router.register(r'comment', views.CommentViewSet)
+router.register(r'like', views.LikeViewSet)
+router.register(r'message', views.MessageViewSet)
+router.register(r'number', views.NumberViewSet)
+router.register(r'top', views.TopArticleViewSet)
 
 app_name = 'blog'
 

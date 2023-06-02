@@ -14,7 +14,7 @@ from common.views import BaseModelViewSet, BaseViewSetMixin
 
 
 class ArticleArchiveListViewSet(BaseViewSetMixin, mixins.ListModelMixin, GenericViewSet):
-    queryset = Article.objects.all()
+    queryset = Article.objects.all().order_by('created_at')
     serializer_class = ArticleListSerializer
 
     def filter_queryset(self, queryset) -> QuerySet:
@@ -68,7 +68,7 @@ class ArticleArchiveListViewSet(BaseViewSetMixin, mixins.ListModelMixin, Generic
 
 class ArticleListViewSet(BaseViewSetMixin, mixins.ListModelMixin,
                          GenericViewSet):
-    queryset = Article.objects.all().select_related('catalog', 'author')
+    queryset = Article.objects.all().select_related('catalog', 'author').order_by('created_at')
     serializer_class = ArticleListSerializer
 
     def filter_queryset(self, queryset):
@@ -179,7 +179,7 @@ class TagViewSet(BaseModelViewSet):
 
 
 class CatalogViewSet(BaseModelViewSet):
-    queryset = Catalog.objects.all()
+    queryset = Catalog.objects.all().order_by('created_at')
     serializer_class = CatalogSerializer
 
     def list(self, request, *args, **kwargs):

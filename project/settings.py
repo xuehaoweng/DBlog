@@ -37,6 +37,7 @@ STATICFILES_DIRS = (
 
 STATIC_URL = '/static/'
 INSTALLED_APPS = [
+    'django_filters',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -56,12 +57,13 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'middlewares.CrossMiddleware.CorsMiddleWare'
 ]
 MIDDLEWARE += ['middlewares.LogMiddleware.PlatformOperationLogs']
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR + '/templates'],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -78,13 +80,32 @@ WSGI_APPLICATION = 'project.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
+# DATABASES = {
+#     'default': {
+#         'NAME': 'blog',
+#         'ENGINE': 'django.db.backends.mysql',
+#         'HOST': '124.221.181.241',
+#         'USER': 'root',
+#         'PASSWORD': 'jpress',
+#         'PORT': '3306',
+#         'TEST_CHARSET': 'utf8',
+#         'TEST_COLLATION': 'utf8_general_ci',
+#         'TEST': {'NAME': 'test_blog',
+#                  'CHARTSET': 'utf8',
+#                  'COLLATION': 'utf8_general_ci'},
+#         'OPTIONS': {
+#             "init_command": "SET default_storage_engine='INNODB'",
+#
+#         }
+#     },
+# }
 DATABASES = {
     'default': {
         'NAME': 'blog',
         'ENGINE': 'django.db.backends.mysql',
-        'HOST': '124.221.181.241',
+        'HOST': 'localhost',
         'USER': 'root',
-        'PASSWORD': 'jpress',
+        'PASSWORD': 'mysql',
         'PORT': '3306',
         'TEST_CHARSET': 'utf8',
         'TEST_COLLATION': 'utf8_general_ci',
@@ -132,13 +153,13 @@ USE_TZ = False
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
-# STATIC_URL = '/static/'
+STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, "static")
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.BasicAuthentication',
-        # 'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
     ],
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
     'PAGE_SIZE': 10
@@ -165,25 +186,20 @@ CONSOLE_LOG_FORMAT = (
     "[%(asctime)s][%(name)s.%(funcName)s():%(lineno)d] [%(levelname)s] %(message)s"
 )
 LOGGING = {
-    'version': 1,
-    'disable_existing_loggers': True,  # 禁用所有的已经存在的日志配置
-    'formatters': {
-        "file": {
-            "format": CONSOLE_LOG_FORMAT,
-            "datefmt": "%Y-%m-%d %H:%M:%S",
-        },
+    "version": 1,
+    "disable_existing_loggers": True,
+    "formatters": {
         'standard': {
             'format': '[%(asctime)s][%(threadName)s:%(thread)d][task_id:%(name)s][%(filename)s:%(lineno)d]'
                       '[%(levelname)s][%(message)s]'
         },
-        'verbose': {
-            'format': '%(levelname)s %(asctime)s %(message)s'  # 日志格式
+        "verbose": {
+            "format": "{levelname} {asctime} {module} {process:d} {thread:d} {message}",
+            "style": "{",
         },
-        'simple': {
-            'format': '%(levelname)s %(message)s'
-        },
-        'standard2': {
-            'format': "%(asctime)s|%(filename)s[line:%(lineno)d]|%(funcName)s|%(name)s|%(levelname)s|%(message)s"
+        "simple": {
+            "format": "{levelname} {message}",
+            "style": "{",
         },
     },
     'filters': {
@@ -194,15 +210,14 @@ LOGGING = {
             '()': 'django.utils.log.RequireDebugFalse',  # 此过滤器仅在settings.DEBUG为False时传递记录
         },
     },
-    # 处理程序
-    'handlers': {  # 用来定义具体处理日志的方式，可以定义很多种，"default" 就是默认方式,"console" 就是打印到控制台方式.
-        'console': {
+    "handlers": {
+        "console": {
             'level': 'INFO',
             'filters': ['require_debug_true'],  # 只有在Django debug为True时才在屏幕打印日志
             'class': 'logging.StreamHandler',
             'formatter': 'verbose'
         },
-        'default': {
+        'server': {
             'level': 'INFO',
             'class': 'logging.handlers.RotatingFileHandler',  # 保存到文件，自动切
             'filename': os.path.join(BASE_LOG_DIR, "server.log"),  # 日志文件
@@ -226,57 +241,59 @@ LOGGING = {
             'level': 'DEBUG',
             'class': 'logging.handlers.RotatingFileHandler',
             'filename': os.path.join(BASE_LOG_DIR, "request.log"),
-            'filters': ['require_debug_true'],
             'maxBytes': 1024 * 1024 * 50,  # 5 MB
             'backupCount': 5,
             'formatter': 'verbose',
         },
-        'db_backends': {
+        # 'db_backends': {
+        #     'level': 'DEBUG',
+        #     'class': 'logging.handlers.RotatingFileHandler',
+        #     'filename': os.path.join(BASE_LOG_DIR, "dbbackends.log"),
+        #     'maxBytes': 1024 * 1024 * 50,  # 5 MB
+        #     'backupCount': 5,
+        #     'formatter': 'verbose',
+        # },
+        'ipam': {
             'level': 'DEBUG',
             'class': 'logging.handlers.RotatingFileHandler',
-            'filename': os.path.join(BASE_LOG_DIR, "dbbackends.log"),
+            'filename': os.path.join(BASE_LOG_DIR, "ipam.log"),
             'maxBytes': 1024 * 1024 * 50,  # 5 MB
-            # 'maxBytes': 1024 * 1024 * 50,  # 5 MB
             'backupCount': 5,
             'formatter': 'verbose',
         },
-
-        "file": {
-            "level": "INFO",
-            "class": "logging.handlers.RotatingFileHandler",
-            "filename": SERVER_LOGS_FILE,
-            "maxBytes": 1024 * 1024 * 100,  # 100 MB
-            "backupCount": 5,  # 最多备份5个
-            "formatter": "file",
-            "encoding": "utf-8",
-        },
     },
-    'loggers': {
-        # 默认的logger应用如下配置
+
+    "loggers": {
         '': {
-            'handlers': ['default', 'console'],  # 上线之后可以把'console'移除
+            'handlers': ['server', 'console'],  # 上线之后可以把'console'移除
             'level': 'DEBUG',
             'propagate': True,  # 向不向更高级别的logger传递
         },
-        "server": {
-            "handlers": ["file"],
-            "level": "INFO",
-        },
-        'django': {  # 日志记录器
-            'handlers': ['default', 'console'],
-            'level': 'DEBUG',
-            'propagate': False,
+        "django": {
+            "handlers": ["server", "console"],
+            "level": 'DEBUG',
+            "propagate": False,
         },
         'django.request': {
             'handlers': ['request_handler', 'console'],
             'level': 'DEBUG',
             'propagate': True
         },
-        'django.db.backends': {
-            'handlers': ['db_backends', 'console'],  # 与代码与数据库的交互有关的消息。例如，请求执行的每个应用程序级SQL语句都在 DEBUG该记录器级别记录。
+        # 'django.db.backends': {
+        #     'handlers': ['db_backends', 'console'],  # 与代码与数据库的交互有关的消息。例如，请求执行的每个应用程序级SQL语句都在 DEBUG该记录器级别记录。
+        #     'level': 'DEBUG',
+        #     'propagate': False
+        # },
+        'ipam': {
+            'handlers': ['ipam', 'console'],
             'level': 'DEBUG',
             'propagate': False
         },
-
+        'server': {
+            'handlers': ['server'],
+            'level': 'DEBUG',
+            'propagate': False
+        },
     },
+
 }

@@ -6,7 +6,7 @@ from common import views
 from common.views import ImageUploadViewSet
 
 router = routers.DefaultRouter()
-router.register('users', views.UserViewSet)
+router.register(r'users', views.UserViewSet)
 
 app_name = 'common'
 

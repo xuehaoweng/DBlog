@@ -8,7 +8,7 @@ from common.models import AccessTimeOutLogs, OpLogs
 
 # 记录平台操作日志 中间件
 class PlatformOperationLogs(MiddlewareMixin):
-    __exclude_urls = ['index/',]  # 定义不需要记录日志的url名单
+    __exclude_urls = ['index/', ]  # 定义不需要记录日志的url名单
 
     def __init__(self, *args):
         super(PlatformOperationLogs, self).__init__(*args)
