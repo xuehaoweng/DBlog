@@ -7,12 +7,12 @@ pip3 install -r requirements.txt -i https://mirrors.aliyun.com/pypi/simple/
 echo -e "yes" | python3 manage.py collectstatic
 
 web(){
-    mkdir -p /home/netopsipam/logs/celery_logs
+    mkdir -p /app/logs/celery_logs
     mkdir -p /var/log/supervisor
-    rm -rf /home/netopsipam/logs/celery_logs/w*.log
+    rm -rf /app/logs/celery_logs/w*.log
     rm -rf *.pid
     echo 'uwsgi done'
-    supervisord -n -c /home/netopsipam/supervisord_prd.conf
+    supervisord -n -c /app/supervisord_prd.conf
 }
 
 
