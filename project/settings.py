@@ -80,32 +80,13 @@ WSGI_APPLICATION = 'project.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
-# DATABASES = {
-#     'default': {
-#         'NAME': 'blog',
-#         'ENGINE': 'django.db.backends.mysql',
-#         'HOST': '124.221.181.241',
-#         'USER': 'root',
-#         'PASSWORD': 'jpress',
-#         'PORT': '3306',
-#         'TEST_CHARSET': 'utf8',
-#         'TEST_COLLATION': 'utf8_general_ci',
-#         'TEST': {'NAME': 'test_blog',
-#                  'CHARTSET': 'utf8',
-#                  'COLLATION': 'utf8_general_ci'},
-#         'OPTIONS': {
-#             "init_command": "SET default_storage_engine='INNODB'",
-#
-#         }
-#     },
-# }
 DATABASES = {
     'default': {
         'NAME': 'blog',
         'ENGINE': 'django.db.backends.mysql',
-        'HOST': 'localhost',
+        'HOST': '124.221.181.241',
         'USER': 'root',
-        'PASSWORD': 'mysql',
+        'PASSWORD': 'jpress',
         'PORT': '3306',
         'TEST_CHARSET': 'utf8',
         'TEST_COLLATION': 'utf8_general_ci',
@@ -118,6 +99,25 @@ DATABASES = {
         }
     },
 }
+# DATABASES = {
+#     'default': {
+#         'NAME': 'blog',
+#         'ENGINE': 'django.db.backends.mysql',
+#         'HOST': 'localhost',
+#         'USER': 'root',
+#         'PASSWORD': 'mysql',
+#         'PORT': '3306',
+#         'TEST_CHARSET': 'utf8',
+#         'TEST_COLLATION': 'utf8_general_ci',
+#         'TEST': {'NAME': 'test_blog',
+#                  'CHARTSET': 'utf8',
+#                  'COLLATION': 'utf8_general_ci'},
+#         'OPTIONS': {
+#             "init_command": "SET default_storage_engine='INNODB'",
+#
+#         }
+#     },
+# }
 
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators
