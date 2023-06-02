@@ -4,7 +4,7 @@ RUN set -ex \
   && apt-get update\
   && apt-get install gcc -y\
   && apt-get install git -y \
-  && apt-get install default-libmysqlclient-dev
+  && echo -e "yes" | apt-get install default-libmysqlclient-dev
 
 COPY . /app
 
