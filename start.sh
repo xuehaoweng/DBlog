@@ -4,8 +4,9 @@ cd /home/blog_backend
 pip3 install --upgrade pip -i https://mirrors.aliyun.com/pypi/simple/
 pip3 install -r requirements.txt -i https://mirrors.aliyun.com/pypi/simple/
 
-python3 manage.py collectstatic --noinput
-
+python manage.py collectstatic --noinput
+python manage.py makemigrations
+python manage.py migrate
 web(){
     mkdir -p /app/logs/celery_logs
     mkdir -p /var/log/supervisor
